@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import {  Routes , Route} from 'react-router'
-import Ant from './ant.jsx';
+import HomePage from './container/homePage'
+
 function App() {
 
 
   return (
   <>
-  {/* <Routes>
-    <Route />
-  </Routes> */}
-
-  <Ant/>
+     <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
   </>
 
   )
