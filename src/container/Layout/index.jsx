@@ -1,16 +1,16 @@
 import { Layout } from "antd";
-import { Header } from "antd/es/layout/layout";
+import Header from "../../component/header";
 import { Divider } from "antd";
 const { Header: AntHeader, Footer, Content } = Layout;
 
 const MainLayout = ({ children }) => (
   <Layout>
-    <AntHeader style={{ backgroundColor: "#gray" }}>
+    <AntHeader style={{ backgroundColor: "#fff" }}>
       <Header />
     </AntHeader>
     <Divider />
     <Content style={{ minHeight: "80vh" }}>{children}</Content>
-    <Footer style={{ backgroundColor: "gray" }}>Footer</Footer>
+    <Footer style={{ backgroundColor: "#efefef" }}>Footer</Footer>
   </Layout>
 );
 export default MainLayout;
