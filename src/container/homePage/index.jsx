@@ -1,9 +1,9 @@
 import MainLayout from "../Layout";
-
+import Cards from "../../component/card/card";
 function HomePage() {
   return (
     <MainLayout>
-      <h2>welcome to homepage</h2>
+      <Cards/>
     </MainLayout>
   );
 }
