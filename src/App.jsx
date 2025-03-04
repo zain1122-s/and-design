@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {  Routes , Route} from 'react-router'
 import HomePage from './container/homePage'
+import Profile from './container/profile/Profile'
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
   <>
      <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
   </>
 

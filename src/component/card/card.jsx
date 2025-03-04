@@ -22,7 +22,7 @@ export default function Cards() {
             }
           >
             <Heading level={4} title="Card Title" link="https://example.com" />
-            <Link>
+            <Link to="/profile">
             see profile
           </Link>
           </Card>

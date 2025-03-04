@@ -12,7 +12,7 @@ const MainLayout = ({ children }) => (
     </AntHeader>
     <Divider />
     <Content style={{ minHeight: "70vh" }}>{children}</Content>
-    <Paginationn/>
+    <Paginationn />
     <Divider />
     <AntFooter style={{ backgroundColor: "#efefef" }}>
       <Footer />
