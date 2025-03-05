@@ -1,4 +1,4 @@
-import MainLayout from "../Layout";
+import MainLayout from "../Layout";                                 
 import Cards from "../../component/card/card";
 import Heading from "../../component/typography/typography";
 import {  Row, Col } from "antd";
