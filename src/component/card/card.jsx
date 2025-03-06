@@ -1,6 +1,6 @@
 import { Card } from "antd";
 import Heading from "../heading";
-import Link from "react-router";
+import Link from "antd/es/typography/Link";
 function CardComponent({ title, imageUrl }) {
   return (
     <Card
