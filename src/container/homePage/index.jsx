@@ -1,27 +1,45 @@
 import MainLayout from "../Layout";                                 
-import Cards from "../../component/card/card";
-import Heading from "../../component/typography/typography";
+import CardComponent from "../../component/card/card";
 import {  Row, Col } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { selectData , fetchData } from "../../app/features/characterSlice";
+import { useEffect } from "react"
+
+
 function HomePage() {
+
+  const data = useSelector(selectData);
+  const dispatch = useDispatch();
+  console.log(data,"data here!");
+  useEffect(()=>{
+    dispatch(fetchData())
+  },[dispatch])
+  
   return (
     <MainLayout>
-      <Row gutter={[16, 16]}>
-        <Col span={24} sm={5} offset={1}>
-        <Cards/>
-        </Col>
+  
 
-        <Col span={24} sm={5} offset={1}>
-        <Cards/>
-        </Col>
-        <Col span={24} sm={5} offset={1}>
-        <Cards/>
-        </Col>
-        <Col span={24} sm={5} offset={1}>
-        <Cards/>
-        </Col>
+  <MainLayout>
+      <Row justify="center">
+        {status === "loading" ? (
+          <Spin size="large" />
+        ) : status === "error" ? (
+          <p>failed to fetch </p>
+        ) : (
+          data?.map((item) => (
+            <Col key={item.id} xs={24} md={5}>
+              <CardComponent
+                title={item.name}
+                imageUrl={item.image}
+                id={item.id}
+              />
+            </Col>
+          ))
+        )}
+        {/* {} */}
       </Row>
-      <Heading />
     </MainLayout>
+  </MainLayout>
   );
 }
 export default HomePage;

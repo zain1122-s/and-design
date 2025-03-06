@@ -1,32 +1,16 @@
-import React from "react";
-import { Row, Col } from "antd";
 import { Card } from "antd";
 import Heading from "../heading";
-import { Link } from "react-router";
-const { Meta } = Card;
-export default function Cards() {
+import Link from "react-router";
+function CardComponent({ title, imageUrl }) {
   return (
-    <div>
-      
-        
-          <Card
-            hoverable
-            style={{
-              width: 300,
-            }}
-            cover={
-              <img
-                alt="example"                      
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              />
-            }
-          >
-            <Heading level={4} title="Card Title" link="https://example.com" />
-            <Link to="/profile">
-            see profile
-          </Link>
-          </Card>
-        
-    </div>
+    <Card
+      hoverable
+      style={{ width: 300 }}
+      cover={<img alt={title} src={imageUrl} />}
+    >
+      <Heading level={5} title={title} />
+      <Link to={"/profile"} >See more</Link>
+    </Card>
   );
 }
+export default CardComponent;

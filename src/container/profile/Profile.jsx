@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../../component/card/card";
 import {  Link as RouterLink } from "react-router";
-import {Row , Col} from 'antd'
+
 
 function profile() {
   return (
@@ -19,11 +19,9 @@ function profile() {
             alt="example"
             src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
           />
-    
         }
-      
       >
-
+    
       </Card>
 
 
