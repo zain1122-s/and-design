@@ -15,6 +15,7 @@ const initialState = {
   characters: [],
   status: "",
   error : ""
+
 };
 
 export const characterSlice = createSlice({

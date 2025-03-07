@@ -18,7 +18,7 @@ function HomePage() {
 
   return (
     <MainLayout>
-      <Row justify="center">
+      <Row justify="center" >
         {status === "loading" ? (
           <Spin size="large" />
         ) : status === "error" ? (

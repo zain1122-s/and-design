@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import Heading from "../heading";
-import Link from "antd/es/typography/Link";
-function CardComponent({ title, imageUrl }) {
+import { Link } from "react-router";
+function CardComponent({ title, imageUrl, id }) {
   return (
     <Card
       hoverable
@@ -9,7 +9,7 @@ function CardComponent({ title, imageUrl }) {
       cover={<img alt={title} src={imageUrl} />}
     >
       <Heading level={5} title={title} />
-      <Link to={"/profile"} >See more</Link>
+      <Link to={`/Profile/${id}`} >View profile</Link>
     </Card>
   );
 }
