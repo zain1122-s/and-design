@@ -1,15 +1,10 @@
-import React from "react";
-import { Pagination } from "antd";
- 
+import { Pagination } from 'antd';
 
-const itemRender = (_, type, originalElement) => {
-  if (type === "prev") {
-    return <a>Previous</a>;
-  }
-  if (type === "next") {
-    return <a>Next</a>;
-  }
-  return originalElement;
-};
-const Paginationn = () => <Pagination total={500} itemRender={itemRender} />;
-export default Paginationn;
+const Paginationcompo= () =>{
+  return(
+    <>
+     <Pagination align="end" defaultCurrent={1} total={50} />
+    </>
+  )
+}
+export default Paginationcompo;

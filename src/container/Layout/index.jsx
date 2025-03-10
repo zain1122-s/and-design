@@ -1,6 +1,5 @@
 import { Layout } from "antd";
 import Header from "../../component/header";
-import Paginationn from "../../component/pagination";
 import Footer from "../../component/footer";
 import { Divider } from "antd";
 const { Header: AntHeader, Footer: AntFooter, Content } = Layout;
@@ -12,7 +11,6 @@ const MainLayout = ({ children }) => (
     </AntHeader>
     <Divider />
     <Content style={{ minHeight: "70vh" }}>{children}</Content>
-    <Paginationn />
     <Divider />
     <AntFooter style={{ backgroundColor: "#efefef" }}>
       <Footer />
