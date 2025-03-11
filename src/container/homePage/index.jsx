@@ -13,11 +13,15 @@ function HomePage() {
   const status = useSelector((state) => state.characters.status);
 
   useEffect(() => {
+    if (!data?.length){
     dispatch(fetchData({page:1}));
-  }, [dispatch]);
+    }
+  }, [dispatch, data]);
 
   const fetchCharacter= (page = 1) =>{
+    if (pagination?.currentPage !== page){
     dispatch(fetchData({page}))
+    }
   }
 
   return (
@@ -30,7 +34,7 @@ function HomePage() {
         ) : (
           data?.map((item) => (
             <Col key={item.id} xs={24} md={5}>
-              <CardComponent title={item.name} imageUrl={item.image} />
+              <CardComponent title={item.name} imageUrl={item.image} id={item.id} status={item.status}/>
             </Col>
           ))
         )}

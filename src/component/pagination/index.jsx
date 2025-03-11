@@ -1,10 +1,10 @@
-import { Pagination } from 'antd';
 
-const Paginationcompo= () =>{
-  return(
-    <>
-     <Pagination align="end" defaultCurrent={1} total={50} />
-    </>
-  )
-}
+
+import React from "react";
+import { Pagination } from "antd";
+
+const Paginationcompo = (props) => {
+  return <Pagination align="end" {...props} />;
+};
+
 export default Paginationcompo;

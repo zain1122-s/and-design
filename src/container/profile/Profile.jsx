@@ -1,64 +1,84 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router';
-import { Card, Row, Col, Spin } from 'antd';
-import MainLayout from '../Layout';
+import { Link, useParams } from "react-router";
+import { Layout } from "antd";
+import { Divider, Spin } from "antd";
+
+import Footer from "../../component/footer/index";
+import Header from "../../component/header/index";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Card } from "antd";
+import Typography from "../../component/typography/typography";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCardData,
+  selectSingleCharacter,
+  addRecentlyVisited,
+} from "../../app/features/characterSlice";
+import { useEffect } from "react";
+const { Header: AntHeader, Footer: AntFooter } = Layout;
 function Profile() {
   const { id } = useParams();
-  const [profileData, setProfileData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const character = useSelector(selectSingleCharacter);
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
-        const data = await response.json();
-        setProfileData(data);
-      } catch (error) {
-        setError('Failed to load profile');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProfileData();
-  }, [id]);
-  if (loading) return <Spin size="large" />;
-  if (error) return <p>{error}</p>;
+    if (id) {
+      dispatch(fetchCardData({ id }));
+    }
+  }, [dispatch, id]);
+  useEffect(() => {
+    if (character?.id) {
+      dispach(
+        addRecentlyVisited({
+          id: character.id,
+          name: character.name,
+          image: character.image,
+        })
+      );
+    }
+  }, [character.dispach]);
   return (
-    <MainLayout>
-      <div className="card">
-        <Link to="/" className="go-back-link">
-           Back to HomePage
-        </Link>
-        <Card
-          hoverable
-          style={{ width: 240, marginTop: 20 }}
-          cover={<img alt={profileData.name} src={profileData.image } />}
-        >
-          <Row gutter={[16, 16]}>
-            <Col span={12}><strong>Name:</strong></Col>
-            <Col span={12}>{profileData.name}</Col>
-          </Row>
-          <Row gutter={[16, 16]}>
-            <Col span={12}><strong>Status:</strong></Col>
-            <Col span={12}>{profileData.status}</Col>
-          </Row>
-          <Row gutter={[16, 16]}>
-            <Col span={12}><strong>Species:</strong></Col>
-            <Col span={12}>{profileData.species}</Col>
-          </Row>
-          <Row gutter={[16, 16]}>
-            <Col span={12}><strong>Gender:</strong></Col>
-            <Col span={12}>{profileData.gender}</Col>
-          </Row>
-        </Card>
-      </div>
-    </MainLayout>
+    <>
+      <Layout>
+        {/* <AntHeader style={{ backgroundColor: "#fff" }}>
+    </AntHeader> */}
+        <Header />
+        <Divider />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div>
+            <Link to="/">
+              <ArrowLeftOutlined /> Back to Homepage
+            </Link>
+            {/* <Cards /> */}
+            <br /> <br />
+            {character ? (
+              <Card
+                hoverable
+                style={{
+                  width: 300,
+                  border: "1px solid ",
+                  borderColor: "#dcdee0",
+                }}
+                cover={<img alt={character.name} src={character.image} />}
+              >
+                <Typography
+                  name={character.name}
+                  status={character.status}
+                  species={character.species}
+                  gender={character.gender}
+                  location={character.location?.name}
+                />
+              </Card>
+            ) : (
+              <Spin size="large" />
+            )}
+          </div>
+        </div>
+        <Divider />
+        <AntFooter style={{ backgroundColor: "#efefef" }}>
+          <Footer />
+        </AntFooter>
+      </Layout>
+    </>
   );
 }
 export default Profile;
-
-
-
-
-
-
