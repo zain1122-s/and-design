@@ -1,44 +1,67 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const fetchData = createAsyncThunk("characters/fetchData", async ({ page = 1 }) => {
-  try {
-    const Url_path = `https://rickandmortyapi.com/api/character/?page=${page}`;
-    const res = await fetch(Url_path);
-    const characterData = await res.json();
-    return characterData;
-  } catch (error) {
-    throw error;
+// Async thunk for fetching character data
+export const fetchData = createAsyncThunk(
+  "characters/fetchData",
+  async ({ page = 1, query = "" }) => {
+    try {
+      const url = `https://rickandmortyapi.com/api/character/?page=${page}&name=${encodeURIComponent(query)}`;
+      const res = await fetch(url);
+      const characterData = await res.json();
+      return characterData;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
-export const fetchCardData = createAsyncThunk("character/fetchCardData", async ({ id }) => {
-  try {
-    const url_link = `https://rickandmortyapi.com/api/character/${id}`;
-    const res = await fetch(url_link);
-    const cardData = await res.json();
-    return cardData;
-  } catch (error) {
-    throw error;
+// Async thunk for fetching single character data
+export const fetchCardData = createAsyncThunk(
+  "characters/fetchCardData",
+  async ({ id }) => {
+    try {
+      const url = `https://rickandmortyapi.com/api/character/${id}`;
+      const res = await fetch(url);
+      const cardData = await res.json();
+      return cardData;
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
+// Initial state
 const initialState = {
   characters: [],
   singleCharacter: {},
   status: "",
   error: "",
+  searchQuery: "",
+  currentPage: 1, // Added missing currentPage
   pagination: {
     count: 0,
     page: 0,
     prev: "",
     next: "",
   },
+  recentVisitedProfile: [],
 };
 
+// Redux slice
 export const characterSlice = createSlice({
   name: "characters",
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setRecentProfiles: (state, action) => {
+      state.recentVisitedProfile = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchData.pending, (state) => {
@@ -46,12 +69,12 @@ export const characterSlice = createSlice({
       })
       .addCase(fetchData.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.characters = action.payload;
+        state.characters = action.payload.results; // Fixed access
         state.pagination = {
-          count: action.payload.info?.count,
-          page: action.payload.info?.page,
-          prev: action.payload.info?.prev,
-          next: action.payload.info?.next,
+          count: action.payload.info?.count || 0,
+          page: action.payload.info?.pages || 1, // Fixed page property
+          prev: action.payload.info?.prev || null,
+          next: action.payload.info?.next || null,
         };
       })
       .addCase(fetchData.rejected, (state, action) => {
@@ -71,12 +94,17 @@ export const characterSlice = createSlice({
       });
   },
 });
-export const { addRecentlyVisited } = characterSlice.actions;
-export const selectData = (state) => state.characters.characters?.results;
-export const selectStatusData = (state) => state.characters.status;
-export const selectpaginaion = (state) => state.characters?.pagination;
-export const selectSingleCharacter = (state) => state.characters.singleCharacter;
-export const selectRecentlyVisited = (state) => state.characters.recentlyVisited;
-export const selectCharacterDetail = (state) => state.characters.singleCharacter;
 
+// Export actions correctly
+export const { setSearchQuery, setCurrentPage, setRecentProfiles } = characterSlice.actions;
+
+// Selectors
+export const selectData = (state) => state.characters.characters;
+export const selectStatusData = (state) => state.characters.status;
+export const selectPagination = (state) => state.characters.pagination;
+export const selectSingleCharacter = (state) => state.characters.singleCharacter;
+export const selectRecentlyVisited = (state) => state.characters.recentVisitedProfile;
+export const selectSearchQuery = (state) => state.characters.searchQuery;
+
+// Export reducer
 export default characterSlice.reducer;
