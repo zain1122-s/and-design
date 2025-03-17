@@ -1,9 +1,9 @@
 import { Image as ImageAnt } from "antd";
 
-const Image = ({ imageUrl, width, height }) => {
+const Image = ({ imageUrl, width, height ,style}) => {
   return (
     <>
-      <ImageAnt width={width} height={height} src={imageUrl} />
+      <ImageAnt width={width} height={height} style={{borserRadius:"50%"}} src={imageUrl} />
     </>
   );
 };

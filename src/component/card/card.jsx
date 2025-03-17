@@ -10,7 +10,7 @@ function CardComponent({ title, imageUrl, id , status}) {
   return (
     <Card
       hoverable
-      style={{ width: 300 }}
+      style={{ width: 300,  }}
       cover={<img alt={title} src={imageUrl} />}
     >
       <Badge dot status={statusColor[status]} />

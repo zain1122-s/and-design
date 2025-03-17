@@ -22,7 +22,7 @@ function Footer() {
               key={index}
             >
               <Link to={`/profile/${profile.id}`}>
-                <ImageComp width={30} height={30} imageUrl={profile.image} />
+                <ImageComp width={30} height={30} style={{borderRadius:"50%"}} imageUrl={profile.image} />
                 &nbsp;
                 {profile.label}
               </Link>

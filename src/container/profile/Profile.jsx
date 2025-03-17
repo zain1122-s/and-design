@@ -71,7 +71,7 @@ function Profile() {
             <Card
               hoverable
               style={{
-                width: 300,
+                width: 370,
                 border: "1px solid ",
                 borderColor: "#dcdee0",
               }}
